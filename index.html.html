@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>⚠️ CRITIQUE</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>On a introduit à ton périphérique - T'as 5 min pour envoyer 50euros à cette adresse - Sinon on prends tout et on t'affiche partout en France ⚠️</h1>
+  <p id="status">Analyse en cours...</p>
+
+  <script>
+    let counter = 0;
+    let status = document.getElementById("status");
+
+    let interval = setInterval(() => {
+      counter++;
+      if (counter < 10) {
+        status.innerText = "Réparation en cours... (" + counter + "/10)";
+      } else {
+        status.innerText = "💥 Système irrécupérable. Redémarrage...";
+        alert("💀 Virus détecté !");
+        clearInterval(interval);
+        // Simulation de blocage du navigateur
+        while (true) {
+          console.log("🐞 Bug en cours...");
+        }
+      }
+    }, 500);
+  </script>
+
+</body>
+</html>
